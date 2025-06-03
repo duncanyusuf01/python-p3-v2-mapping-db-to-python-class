@@ -3,14 +3,22 @@ from department import Department
 
 import ipdb
 
+Department.drop_table()
+Department.create_table()
 
-def reset_database():
-    Department.drop_table()
-    Department.create_table()
+payroll = Department.create("Payroll", "Building A, 5th Floor")
+print(payroll)  # <Department 1: Payroll, Building A, 5th Floor>
 
-    Department.create("Payroll", "Building A, 5th Floor")
-    Department.create("Human Resources", "Building C, East Wing")
-    Department.create("Accounting", "Building B, 1st Floor")
+hr = Department.create("Human Resources", "Building C, East Wing")
+print(hr)  # <Department 2: Human Resources, Building C, East Wing>
 
-reset_database()
+hr.name = 'HR'
+hr.location = "Building F, 10th Floor"
+hr.update()
+print(hr)  # <Department 2: HR, Building F, 10th Floor>
+
+print("Delete Payroll")
+payroll.delete()  # delete from db table, object still exists in memory
+print(payroll)  # <Department 1: Payroll, Building A, 5th Floor>
+
 ipdb.set_trace()
